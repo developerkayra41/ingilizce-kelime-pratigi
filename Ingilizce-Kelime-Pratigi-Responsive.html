@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelime Bilmece</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/3bd2450c67.js" crossorigin="anonymous"></script>
+    <style>
+        /* 828px × 1792px */
+        * {
+            margin: 0;
+            padding: 0;
+            /* box-sizing: border-box; */
+            /* border:1px solid black; */
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .container {
+            width: max-content;
+            margin: 0 auto;
+            display: flex;
+            margin-top: 150px;
+            height: 400px;
+        }
+
+        .arrow-box {
+            width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+        }
+
+        .main-box {
+            width: 500px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .main-box .div-text h1 {
+            font-size: 5rem;
+            transition: 0.1s;
+        }
+
+        .main-box .div-text h1:hover {
+            font-size: 5.2rem;
+        }
+
+        .kelime-text {
+            width: 360px;
+            outline: 0;
+            border: 0;
+            border-radius: 15px;
+            font-size: 2rem;
+            text-align: center;
+            padding: 5px;
+            font-family: 'Space Grotesk', sans-serif;
+            position: relative;
+        }
+
+        #kelimeFiltre {
+            width: 163px;
+            outline: 0;
+            border: 0;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 5px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        #question-mark {
+            position: absolute;
+            right: 8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #555;
+            font-size: 2rem;
+            cursor: pointer;
+            padding: 0.6rem;
+            z-index: 2;
+            transition: 0.1s;
+        }
+
+        #question-mark:hover {
+            font-size: 2.4rem;
+            transition: 0.1s;
+        }
+
+        .kutu {
+            background-color: rgb(191, 64, 191);
+            padding: 5px;
+            border-radius: 15px;
+            transition: 0.1s;
+            position: relative;
+        }
+
+        .kutu:hover {
+            font-size: 1.5rem;
+        }
+
+        .kutu-2 {
+            background-color: rgb(191, 64, 191);
+            padding: 5px;
+            border-radius: 15px;
+            transition: 0.1s;
+            display: flex;
+            color: white;
+            margin-bottom: 1rem;
+            justify-self: flex-start;
+        }
+
+        .search-h1 {
+            margin: 0.1rem;
+        }
+
+        .button-text {
+            font-size: 2rem;
+            background-color: transparent;
+            border: 0;
+            border-radius: 15px;
+            transition: 0.2s;
+            color: white;
+            padding: 0px 20px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .button-text:hover {
+            background-color: rgb(165, 55, 165);
+        }
+
+        .icon-ok {
+            transition: 0.1s;
+        }
+
+        .icon-ok:hover {
+            font-size: 4rem;
+        }
+
+        .tablo {
+            width: 100%;
+            height: 498px;
+            transition: 1s;
+            border: 1px solid black;
+            border-radius: 15px;
+            overflow: scroll;
+            overflow-x: hidden;
+        }
+
+        /* width */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px grey;
+            border-radius: 10px;
+        }
+
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: rgb(149, 149, 149);
+            border-radius: 10px;
+        }
+
+        .listTable {
+            text-align: center;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background-color: rgb(191, 64, 191);
+            color: white;
+        }
+
+        thead tr td {
+            font-size: 1.3rem;
+        }
+
+        tr,
+        td {
+            font-size: 1rem;
+            font-weight: bold;
+            border: 1px solid rgb(0, 0, 0);
+            width: 250px;
+            padding: 0.6rem;
+        }
+
+        tbody tr:nth-child(odd) {
+            background-color: rgb(247, 247, 247);
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: rgb(230, 230, 230);
+        }
+
+        tbody tr:hover {
+            background-color: rgb(210, 210, 210);
+        }
+
+        #info {
+            font-size: 1.25rem;
+            margin-top: 5px;
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .ekleme-menu {
+            margin: 0 auto;
+            width: max-content;
+            margin-top: 20px;
+        }
+
+        .text-area {
+            background-color: rgb(191, 64, 191);
+            padding: 5px;
+            border-radius: 15px;
+            margin: 5px 10px;
+        }
+
+        .ekle-style {
+            outline: 0;
+            border: 0;
+            border-radius: 15px;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 5px;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .div-button {
+            background-color: rgb(191, 64, 191);
+            width: 170px;
+            border-radius: 15px;
+            padding: 3px;
+            text-align: center;
+            transition: 0.2s;
+        }
+
+        .div-button i {
+            font-size: 2rem;
+        }
+
+        .div-button:hover {
+            background-color: rgb(165, 55, 165);
+        }
+
+        .ust {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        canvas#confetti {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0px;
+            left: 0px;
+            z-index: 1000;
+            pointer-events: none;
+        }
+
+        .flip-animation {
+            animation: flip 1s ease-in-out;
+
+        }
+
+        @keyframes flip {
+            0% {
+                transform: translateY(-50%) scaleX(1);
+            }
+
+            50% {
+                transform: translateY(-50%) scaleX(-1);
+            }
+
+            100% {
+                transform: translateY(-50%) scaleX(1);
+            }
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            display: none;
+            width: 60px;
+            height: 34px;
+        }
+
+        /* Hide default HTML checkbox */
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        /* The slider */
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+        }
+
+        input:checked+.slider {
+            background-color: #2196F3;
+        }
+
+        input:focus+.slider {
+            box-shadow: 0 0 1px #2196F3;
+        }
+
+        input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
+        }
+
+        /* Rounded sliders */
+        .slider.round {
+            border-radius: 34px;
+        }
+
+        .slider.round:before {
+            border-radius: 50%;
+        }
+
+        .arrow-box1,
+        .arrow-box2 {
+            position: fixed;
+            top: 50%;
+            /* Ekranın yüksekliğinin yarısı kadar yükseklikte */
+            transform: translateY(-50%);
+            font-size: 3rem;
+            color: #000000;
+        }
+
+        .arrow-box1 {
+            left: 330px;
+            /* Ekranın solundan 20px uzaklıkta */
+        }
+
+        .arrow-box2 {
+            right: 330px;
+            /* Ekranın sağından 20px uzaklıkta */
+        }
+
+        .button-catalog {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-self: flex-end;
+            margin-bottom: 1rem;
+            /* height: 50px; */
+        }
+
+        .button-container {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .button-catalog button {
+            background-color: rgb(191, 64, 191);
+            border-radius: 15px;
+            padding: 10px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }   
+
+        .icon-left,
+        .icon-right {
+            font-size: 1.5rem;
+            /* İkona uygun bir boyut belirleyebilirsiniz */
+        }
+
+        .kutu-3 {
+            width: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            /* Bu satır eklenmiştir */
+        }
+
+        @media screen and (max-width:500px) {
+            .main-box {
+                width: 300px;
+
+            }
+
+            .kutu-3 {
+                width: 300px;
+            }
+
+            #kelimeFiltre {
+                width: 80px;
+                /* font-size:1.5rem; */
+                padding: 1px;
+            }
+
+            .kutu-2 {
+                margin-bottom: 0.5rem;
+            }
+
+            .kutu-2 h1 {
+                font-size: 1.3rem;
+            }
+
+            .button-catalog .button-text {
+                font-size: 0.8rem;
+            }
+
+            .ekle-style {
+                font-size: 0.8rem;
+            }
+
+            .div-button .button-text {
+                font-size: 0.8rem;
+                padding: 3px;
+            }
+
+            .ekleme-menu .div-button {
+                width: 80px;
+            }
+
+            .ekleme-menu {
+                margin-top: 10px;
+            }
+
+            .ust {
+                margin: 10px 0px;
+            }
+
+            .arrow-box1 {
+                left: -65px;
+                font-size: 2.4rem;
+            }
+
+            .arrow-box2 {
+                right: -65px;
+                font-size: 2.4rem;
+            }
+            .container {
+                height: 350px;
+            }
+            #kelime {
+                font-size: 3rem;
+            }
+            .kelime-text {
+                width: 220px;
+                font-size: 1rem;
+            }
+            .kutu .button-text {
+                font-size: 1rem;
+            }
+            #question-mark {
+                right: 6.8rem;
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+
+<body onload="calistir(), degis()">
+    <canvas id="confetti"></canvas>
+    <div class="container">
+        <div class="arrow-box arrow-box1">
+            <i class="fa-solid fa-angle-left icon-ok" style="color: #000000;" onclick="div_degis()"></i>
+        </div>
+        <!-- ------------------------------------------------------- -->
+        <div class="main-box">
+
+            <div class="kutu-3">
+                <div class="kutu-2" style="display: none;">
+                    <h1 class="search-h1">Ara:</h1>
+                    <input type="text" id="kelimeFiltre" class="search-input" oninput="filtreleTabloyu()">
+                </div>
+
+                <!-- katalog -->
+                <div class="button-catalog" style="display: none;">
+                    <div class="button-container">
+                        <i class="fa-solid fa-chevron-left icon-left" onclick="prevButton()"></i>
+                        <button class="button-text" onclick="exportToDesktop()">Kelimeleri İndir</button>
+                        <i class="fa-solid fa-chevron-right icon-right" onclick="nextButton()"></i>
+                    </div>
+
+                    <div class="button-container">
+                        <i class="fa-solid fa-chevron-left icon-left" onclick="prevButton()"></i>
+                        <button class="button-text" onclick="selectJsonFile()">Kelimeleri
+                            Yükle</button>
+                        <input type="file" id="jsonFileInput" accept=".json" style="display: none;"
+                            onchange="uploadFileAndSaveToLocalStorage()">
+
+                        <i class="fa-solid fa-chevron-right icon-right" onclick="nextButton()"></i>
+                    </div>
+
+                    <div class="button-container">
+                        <i class="fa-solid fa-chevron-left icon-left" onclick="prevButton()"></i>
+                        <button class="button-text" onclick="HepsiniTemizle()">Hepisini Temizle</button>
+                        <i class="fa-solid fa-chevron-right icon-right" onclick="nextButton()"></i>
+                    </div>
+                </div>
+
+                <!-- katalog sonu -->
+            </div>
+            <!-- kelime-divi -->
+            <div class="div-text">
+                <h1 id="kelime">KELİME BİLMECE</h1>
+            </div>
+            <div class="kutu">
+                <input type="text" class="kelime-text" oninput="inputDegisti()"
+                    onkeydown="enterTuşuİleButonuTıkla(event)">
+                <i onclick="writeTheAnswer()" class="fa-sharp fa-solid fa-question" id="question-mark"
+                    style="color: #bf40bf;"></i>
+                <button style="text-align: center;" class="button-text" onclick="kelimeDegis()">Bil <i
+                        class="fa-solid fa-brain" style="color: #ffffff; font-size: 1.5rem;"></i> </button>
+            </div>
+            <h1 id="info">Doğru</h1>
+            <!-- tablo-divi -->
+            <div class="tablo" style="display: none;">
+                <table class="listTable">
+                    <thead>
+                        <tr>
+                            <td class="listHeaders">Keys</td>
+                            <td class="listHeaders">Values</td>
+                        </tr>
+                    </thead>
+                    <tbody class="tbodyy">
+                    </tbody>
+                </table>
+            </div>
+            <!-- <input type="file" id="jsonFileInput" accept=".json"> -->
+        </div>
+        <!-- ------------------------------------------------------- -->
+
+        <div class="arrow-box arrow-box2">
+            <i class="fa-solid fa-chevron-right icon-ok" style="color: #000000;" onclick="div_degis()"></i>
+        </div>
+    </div>
+    <div class="ekleme-menu" style="display: none">
+
+        <div class="ust">
+
+            <div class="text-area">
+                <input type="text" class="ekle-kelime-text ekle-style" placeholder="Kelime"
+                    onkeydown="enterTusuKelimeEkle(event)">
+            </div>
+            <div class="div-button">
+                <button class="button-text" onclick="ekle()">Ekle <i class="fa-solid fa-plus"
+                        style="color: #ffffff;"></i></button>
+            </div>
+
+        </div>
+
+        <div class="ust">
+            <div class="text-area">
+                <input type="text" class="ekle-anlam-text ekle-style" placeholder="Anlam"
+                    onkeydown="enterTusuAnlam(event)">
+            </div>
+            <div class="div-button">
+                <button class="button-text" onclick="cikart()">Çıkar <i class="fa-solid fa-minus"
+                        style="color: #ffffff;"></i></button>
+            </div>
+        </div>
+
+    </div>
+    <script>
+
+        const canvas = document.getElementById('confetti');
+        var liste = [];
+
+        var keys = Object.keys(localStorage);
+        var randomIndex = Math.floor(Math.random() * keys.length);
+        var randomKey = keys[randomIndex];
+        var randomValue = localStorage.getItem(randomKey);
+        var randomVariableKey = randomKey;
+        var randomVariableValue = randomValue;
+        document.querySelector("#kelime").innerText = randomVariableKey;
+
+        function degis() {
+            let kelime = "";
+
+            do {
+                keys = Object.keys(localStorage);
+                randomIndex = Math.floor(Math.random() * keys.length);
+                randomKey = keys[randomIndex];
+                randomValue = localStorage.getItem(randomKey);
+                randomVariableKey = randomKey;
+                randomVariableValue = randomValue;
+                document.querySelector("#kelime").innerText = randomVariableKey;
+                kelime = "";
+            } while (liste.hasOwnProperty(randomVariableKey));
+            return kelime;
+        }
+
+        function addConfetti() {
+            const jsConfetti = new JSConfetti();
+            jsConfetti.addConfetti();
+        }
+
+        function yeniKelime() {
+
+            if (liste.length == keys.length) {
+                playAudio();
+                liste = [];
+                // info_true(true, "", 0,0);
+                info_true(true, "Hepsini Tamamladın !", 4000, 4300);
+
+                let confettiInterval = setInterval(() => {
+                    addConfetti();
+                }, 200);
+                setTimeout(() => {
+                    clearInterval(confettiInterval);
+                }, 3000);
+
+                let keys = Object.keys(localStorage);
+                let key = "";
+
+                do {    
+                    key = keys[Math.floor(Math.random() * keys.length)];
+                } while (liste.includes(key));
+
+                return key;
+            }
+            else {
+                let keys = Object.keys(localStorage);
+                let key = "";
+
+                do {
+                    key = keys[Math.floor(Math.random() * keys.length)];
+                } while (liste.includes(key));
+
+                return key;
+            }
+        }
+
+        function kelimeDegis() {
+            let kelime1 = document.querySelector(".kelime-text").value.trim().toLowerCase();
+            kelime1 = kelime1.toLowerCase().trim();
+
+            if (kelime1 == randomVariableValue) {
+
+                liste.push(randomVariableKey); // jump
+
+                if (liste.length < keys.length) {
+                    info_true(true, "Doğru", 500, 800);
+                }
+
+                document.querySelector(".kelime-text").value = "";
+
+                let kelime = yeniKelime();
+                if (kelime !== "") {
+                    randomVariableKey = kelime;
+                    randomVariableValue = localStorage.getItem(randomVariableKey);
+                    document.querySelector("#kelime").innerText = randomVariableKey;
+                }
+            }
+            else {
+                info_true(false, "Yanlış", 500, 800);
+                toggleFlipAnimation();
+                setTimeout(disableflipQuestionMark, 1000);
+            }
+        }
+
+        function info_true(boolParam, result, time1, time2) {
+            if (boolParam) {
+                document.querySelector("#info").style.color = "#0D7918";
+                document.querySelector("#info").innerText = result;
+            }
+            else {
+                document.querySelector("#info").style.color = "#ff0000";
+                document.querySelector(".kelime-text").style.color = "red";
+                document.querySelector("#info").innerText = result;
+            }
+
+            document.querySelector("#info").style.visibility = "visible";
+            document.querySelector("#info").style.opacity = 1;
+            setTimeout(function () {
+                document.querySelector("#info").style.opacity = 0;
+            }, time1);
+            setTimeout(function () {
+                document.querySelector("#info").style.visibility = "hidden";
+            }, time2);
+        }
+
+        function HepsiniTemizle() {
+
+            var confirmed = confirm('Bütün kelimeleriniz silinecek. Silmeden önce kaydetmek isteyebilirsin. Aklınızda bulunsun. Devam etmek istiyor musunuz ?');
+
+            // Kullanıcı "Tamam" butonuna bastıysa localStorage temizle
+            if (confirmed) {
+                localStorage.clear();
+                alert('Kelimeleriniz başarıyla silindi. Sayfayı yenileyerek kontrol edebilirsiniz !');
+            } else {
+                alert('İşlem iptal edildi.');
+            }
+
+        }
+
+        // ------- JSON İŞLEMLERİ ----------
+        // ------- DIŞA AKTAR -------------
+
+        function exportToDesktop() {
+            const allData = {};
+
+            // localStorage içindeki tüm anahtarları al
+            const keys = Object.keys(localStorage);
+
+            // Her bir anahtar için localStorage'dan veriyi al ve birleştir
+            keys.forEach(key => {
+                allData[key] = localStorage.getItem(key);
+            });
+
+            // Eğer en az bir anahtar varsa JSON dosyasına dönüştür ve indir
+            if (keys.length > 0) {
+                const jsonData = JSON.stringify(allData);
+                downloadJsonFile(jsonData, 'kelimeler.json');
+            } else {
+                alert('Hiçbir kelime eklememişsiniz !');
+            }
+        }
+
+        function downloadJsonFile(data, filename) {
+            const blob = new Blob([data], { type: 'application/json' });
+            const link = document.createElement('a');
+
+            link.href = URL.createObjectURL(blob);
+            link.download = filename;
+
+            document.body.appendChild(link);
+            link.click();
+
+            document.body.removeChild(link);
+        }
+
+        // ------- İÇE AKTAR -------------
+
+        function selectJsonFile() {
+            document.getElementById('jsonFileInput').click();
+        }
+        function uploadFileAndSaveToLocalStorage() {
+            const fileInput = document.getElementById('jsonFileInput');
+            const file = fileInput.files[0];
+
+            if (file) {
+                readJsonFileAndSaveToLocalStorage(file);
+            } else {
+                alert('Lütfen bir JSON dosyası seçin.');
+            }
+        }
+
+        function readJsonFileAndSaveToLocalStorage(file) {
+            const reader = new FileReader();
+
+            reader.onload = function (event) {
+                const jsonData = JSON.parse(event.target.result);
+                saveDataToLocalStorage(jsonData);
+                alert('Seçtiğiniz kelime dosyası başarıyla eklendi. Lütfen sayfayı yenileyin !');
+            };
+
+            reader.readAsText(file);
+        }
+
+        function saveDataToLocalStorage(data) {
+            // localStorage temizle
+            localStorage.clear();
+
+            // Her bir anahtar ve değeri localStorage'a ekle
+            Object.keys(data).forEach(key => {
+                localStorage.setItem(key, data[key]);
+            });
+        }
+        // ---------------------------------
+        function runKnowItYourself() {
+            // İşlemleri yap ve sonra fonksiyonu çağır
+
+            knowItYourself();
+            return;
+        }
+
+        function writeTheAnswer() {
+            document.querySelector(".kelime-text").value = randomVariableValue;
+        }
+
+        function knowItYourself() {
+            if (liste.length < keys.length - 1) {
+                console.log(liste.length);
+                document.querySelector(".kelime-text").value = randomVariableValue;
+                kelimeDegis();
+                // Liste ve keys üzerinde kontrol yapısı eklemeyi unutmayın.
+
+                // setTimeout kullanarak bir kez çalıştırma
+                setTimeout(() => {
+                    knowItYourself();
+                }, 10);
+            }
+            return;
+        }
+
+        const icon = document.getElementById("question-mark");
+
+        function toggleFlipAnimation() {
+            icon.classList.toggle("flip-animation");
+        }
+
+        function flipQuestionMark() {
+            toggleFlipAnimation();
+        }
+
+        function disableflipQuestionMark() {
+            icon.classList.remove("flip-animation");
+        }
+
+        function playAudio() {
+            var audio = new Audio('https://commondatastorage.googleapis.com/codeskulptor-assets/week7-brrring.m4a');
+            audio.play();
+        }
+
+        function calistir() {
+            var tableBody = document.querySelector(".listTable tbody");
+            tableBody.innerHTML = "";
+
+            for (var i = 0; i < localStorage.length; i++) {
+                var key = localStorage.key(i);
+                var value = localStorage.getItem(key);
+                ekleTabloya(key, value);
+            }
+        }
+
+        function ekleTabloya(key, value) {
+            var tableBody = document.querySelector(".listTable tbody");
+            var row = document.createElement('tr');
+            var nameCell = document.createElement('td');
+            var emailCell = document.createElement('td');
+            nameCell.textContent = key;
+            emailCell.textContent = value;
+            row.appendChild(nameCell);
+            row.appendChild(emailCell);
+
+            // Atanan class
+            row.classList.add("clickable-row");
+
+            // Tıklama olayını dinleme
+            row.addEventListener("click", function () {
+                // Tetiklenen fonksiyon
+                document.querySelector(".ekle-kelime-text").value = this.querySelector('td:first-child').textContent;
+                document.querySelector(".ekle-anlam-text").value = this.querySelector('td:last-child').textContent;
+                // Buraya tetiklenen fonksiyonun içeriğini ekleyebilirsiniz.
+            });
+
+            tableBody.appendChild(row);
+        }
+
+        function filtreleTabloyu() {
+            var filterInput = document.getElementById('kelimeFiltre');
+            var filter = filterInput.value.toLowerCase();
+
+            calistir(); // Tabloyu temizle ve tüm verileri tekrar ekle
+
+            var rows = document.querySelectorAll(".listTable tbody tr");
+
+            rows.forEach(function (row) {
+                var kelime = row.querySelector('td:first-child').textContent.toLowerCase();
+                var anlam = row.querySelector('td:last-child').textContent.toLowerCase();
+
+                if (kelime.includes(filter) || anlam.includes(filter)) {
+                    // Eğer kelime ya da anlam içinde filtre varsa, tabloyu göster
+                    row.style.display = 'table-row';
+                } else {
+                    // Aksi takdirde, tabloyu gizle
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        // Sayfa yüklendiğinde tabloyu oluştur
+        calistir();
+
+        function div_degis() {
+            if (document.querySelector(".tablo").style.display == "none") {
+                // Kataloğa geçiş için kod
+                document.querySelector(".div-text").style.display = "none";
+                document.querySelector(".kutu").style.display = "none";
+                document.querySelector("#info").style.display = "none";
+                document.querySelector(".ekleme-menu").style.display = "block";
+                document.querySelector(".tablo").style.display = "block";
+                document.querySelector(".kutu-2").style.display = "flex";
+                document.querySelector(".container").style.marginTop = "100px";
+                document.querySelector(".button-catalog").style.display = "block";
+                document.querySelector(".button-container").style.display = "flex"; // Flex olarak değiştir
+            } else if (document.querySelector(".tablo").style.display == "block") {
+                // Başlangıç görünümüne geri dönme için kod
+                document.querySelector(".tablo").style.display = "none";
+                document.querySelector(".ekleme-menu").style.display = "none";
+                document.querySelector("#info").style.display = "block";
+                document.querySelector(".div-text").style.display = "block";
+                document.querySelector(".kutu").style.display = "block"; // Kutunun görünürlüğünü ekleyin
+                document.querySelector(".kutu-2").style.display = "none";
+                document.querySelector(".container").style.marginTop = "150px";
+                document.querySelector(".button-catalog").style.display = "none";
+                document.querySelector(".button-container").style.display = "none";
+            }
+
+            // Ek olarak, "Kelimeleri İndir" düğmesini kontrol et
+            showButton(currentIndex);
+        }
+
+        function enterTuşuİleButonuTıkla(event) {
+            if (event.keyCode === 13) {
+                kelimeDegis();
+            }
+        }
+
+        function inputDegisti() {
+            document.querySelector(".kelime-text").style.color = "black";
+        }
+
+        function ekle() {
+            let kelime1 = document.querySelector(".ekle-kelime-text").value.toLowerCase().trim();
+            let anlam1 = document.querySelector(".ekle-anlam-text").value.toLowerCase().trim();
+            var isAlpha = function (ch) {
+                return typeof ch === "string"
+                    && (ch >= "a" && ch <= "z" || ch >= "A" && ch <= "Z" || /[a-zA-ZçÇğĞıİöÖşŞüÜ-]/.test(ch));
+            };
+
+            if (isAlpha(kelime1) && isAlpha(anlam1)) {
+                // localStorage'da kelime veya anlam var mı kontrol et
+                if (localStorage.getItem(kelime1)) {
+                    alert("[" + kelime1 + "]" + "Bu kelime zaten var!");
+                } else if (localStorage.getItem(anlam1)) {
+                    alert("[" + anlam1 + "]" + "Bu kelime zaten var!");
+                } else {
+                    // Yeni kelime ve anlamı localStorage'a ekle
+                    localStorage.setItem(kelime1, anlam1);
+                    localStorage.setItem(anlam1, kelime1);
+                    document.querySelector(".ekle-kelime-text").value = "";
+                    document.querySelector(".ekle-anlam-text").value = "";
+                    calistir();
+                }
+            } else {
+                alert("Lütfen sayı veya boş karakter girmeyin");
+            }
+        }
+
+        function cikart() {
+            let kelime2 = document.querySelector(".ekle-kelime-text").value.toLowerCase().trim();
+
+            if (keys.includes(kelime2) == true) {
+                localStorage.removeItem(kelime2);
+                document.querySelector(".ekle-kelime-text").value = "";
+                document.querySelector(".ekle-anlam-text").value = "";
+
+                calistir();
+            }
+            else {
+                alert("Girilen kelime bulunamadı !");
+            }
+        }
+
+        function enterTusuKelimeEkle(event) {
+            if (event.keyCode === 13) {
+                document.querySelector(".ekle-anlam-text").focus();
+            }
+        }
+
+        function enterTusuAnlam(event) {
+            if (event.keyCode === 13) {
+                ekle();
+                document.querySelector(".ekle-kelime-text").focus();
+            }
+        }
+
+        // button katalog
+
+        const buttonCatalog = document.querySelector('.button-catalog');
+        let currentIndex = 0;
+
+        function showButton(index) {
+            const buttons = buttonCatalog.children;
+            for (let i = 0; i < buttons.length; i++) {
+                buttons[i].style.display = 'none';
+            }
+            buttons[index].style.display = 'flex';
+        }
+
+        function nextButton() {
+            currentIndex = (currentIndex + 1) % buttonCatalog.children.length;
+            showButton(currentIndex);
+        }
+
+        function prevButton() {
+            currentIndex = (currentIndex - 1 + buttonCatalog.children.length) % buttonCatalog.children.length;
+            showButton(currentIndex);
+        }
+
+        // Test fonksiyonları
+        function testFunction1() {
+            alert('Test Fonksiyonu 1');
+        }
+
+        function testFunction2() {
+            alert('Test Fonksiyonu 2');
+        }
+
+        function testFunction3() {
+            alert('Test Fonksiyonu 3');
+        }
+
+        // Initial button display
+        showButton(currentIndex);
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+
+</body>
+
+</html>
